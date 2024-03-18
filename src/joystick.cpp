@@ -1,6 +1,6 @@
-#include <bind-glfw/modules.h>
+#include <modules.h>
 
-#include <binder/list-wrapper.h>
+#include <list-wrapper.h>
 
 static py::object joystickCallback;
 

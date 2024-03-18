@@ -8,6 +8,7 @@ using namespace pybind11::literals;
 
 #define QUICK(func) m.def(#func, glfw##func);
 
+// Stub definitions for opaque classes to make PyBind happy
 struct GLFWwindow
 {
 };

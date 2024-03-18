@@ -1,4 +1,4 @@
-#include <bind-glfw/modules.h>
+#include <modules.h>
 
 static py::object windowPosCallback;
 static py::object windowSizeCallback;

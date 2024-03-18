@@ -1,5 +1,5 @@
-#include <bind-glfw/modules.h>
-#include <binder/list-wrapper.h>
+#include <list-wrapper.h>
+#include <modules.h>
 
 namespace py = pybind11;
 using namespace pybind11::literals;

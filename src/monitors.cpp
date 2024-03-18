@@ -1,5 +1,5 @@
-#include <bind-glfw/modules.h>
-#include <binder/list-wrapper.h>
+#include <list-wrapper.h>
+#include <modules.h>
 
 static py::object monitorCallback;
 
@@ -15,7 +15,7 @@ void init_monitors(py::module& m)
 {
     monitorCallback = py::none();
 
-    initListWrapper<GLFWmonitor>(m, "ListWrapperMonitor");
+    initListWrapper<GLFWmonitor*>(m, "ListWrapperMonitor");
 
     m.def(
         "GetMonitors",

@@ -1,8 +1,8 @@
 #include <GLFW/glfw3.h>
 
-#include <bind-glfw/modules.h>
-#include <binder/list-wrapper.h>
-#include <binder/struct-utility.h>
+#include <list-wrapper.h>
+#include <modules.h>
+#include <struct-utility.h>
 
 namespace py = pybind11;
 

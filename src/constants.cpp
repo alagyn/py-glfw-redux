@@ -1,4 +1,4 @@
-#include <bind-glfw/modules.h>
+#include <modules.h>
 
 #include <GLFW/glfw3.h>
 
