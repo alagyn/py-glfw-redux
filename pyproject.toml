@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel", "cmake>=3.25", "setuptools-pybind11"]
+requires = ["setuptools>=68.0.0", "wheel", "cmake>=3.25", "setuptools-pybind11"]
 build-backend = "setuptools.build_meta"
 
 [tool.distutils.egg_info]
