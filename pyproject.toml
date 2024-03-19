@@ -7,7 +7,7 @@ egg_base = "build"
 
 [project]
 name = "py-glfw-redux"
-version = "1.0.1"
+version = "1.0.2"
 authors = [{ name = "Alagyn" }]
 description = "A python wrapper for GLFW made with PyBind11"
 readme = "README.md"
