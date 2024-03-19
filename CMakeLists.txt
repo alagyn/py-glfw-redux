@@ -36,6 +36,7 @@ set_target_properties(pyglfw
     INTERPROCEDURAL_OPTIMIZATION ON
     VISIBILITY_INLINES_HIDDEN ON
     CXX_STANDARD 17
+    OUTPUT_NAME "glfw" # rename to glfw like this so we don't conflict target names
 )
 
 target_link_libraries(pyglfw

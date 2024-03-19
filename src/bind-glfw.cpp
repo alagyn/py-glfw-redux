@@ -4,7 +4,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(pyglfw, m)
+PYBIND11_MODULE(glfw, m)
 {
     m.doc() = "GLFW Windowing System";
 
