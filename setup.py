@@ -1,5 +1,12 @@
 from setuptools_pybind11 import setup, PyBindModule
 
+import os
+
+SRC_DIR = os.path.split(__file__)[0]
+BUILD_DIR = os.path.join(SRC_DIR, "build")
+if not os.path.exists(BUILD_DIR):
+    os.mkdir(BUILD_DIR)
+
 setup(
     [
         PyBindModule(
