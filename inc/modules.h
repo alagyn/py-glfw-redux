@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glad/gl.h>
+
 #include <GLFW/glfw3.h>
 #include <pybind11/pybind11.h>
 
@@ -29,3 +31,4 @@ void init_monitors(py::module& m);
 void init_windows(py::module& m);
 void init_input(py::module& m);
 void init_joystick(py::module& m);
+void init_callbacks(py::module& m);

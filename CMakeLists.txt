@@ -21,6 +21,7 @@ add_subdirectory(third-party)
 
 set(srcs
     src/bind-glfw.cpp
+    src/callbacks.cpp
     src/constants.cpp
     src/context.cpp
     src/input.cpp
@@ -40,9 +41,10 @@ set_target_properties(pyglfw
 )
 
 target_link_libraries(pyglfw
-    PRIVATE 
-        pybind11::headers
-        glfw
+    PRIVATE
+    pybind11::headers
+    glfw
+    glad
 )
 
 target_include_directories(pyglfw

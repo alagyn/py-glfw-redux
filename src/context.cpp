@@ -4,20 +4,8 @@
 namespace py = pybind11;
 using namespace pybind11::literals;
 
-static py::object errorCallback;
-
-void errorCallbackFunc(int error_code, const char* desc)
-{
-    if(!errorCallback.is_none())
-    {
-        errorCallback(error_code, desc);
-    }
-}
-
 void init_context(py::module& m)
 {
-    errorCallback = py::none();
-
     py::class_<GLFWwindow>(m, "Window");
     py::class_<GLFWmonitor>(m, "Monitor");
     py::class_<GLFWcursor>(m, "Cursor");
@@ -44,18 +32,6 @@ void init_context(py::module& m)
             return py::make_tuple(code, desc);
         }
     );
-    m.def(
-        "SetErrorCallback",
-        [](py::object cb)
-        {
-            py::object out = errorCallback;
-            errorCallback = cb;
-            glfwSetErrorCallback(errorCallbackFunc);
-            return out;
-        },
-        "callback"_a
-    );
-
     QUICK(GetTime);
     m.def("SetTime", glfwSetTime, "time"_a);
     QUICK(GetTimerValue);

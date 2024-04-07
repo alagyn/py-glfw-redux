@@ -4,14 +4,6 @@
 
 static py::object joystickCallback;
 
-void joystickCallbackFunc(int jid, int event)
-{
-    if(!joystickCallback.is_none())
-    {
-        joystickCallback(jid, event);
-    }
-}
-
 void init_joystick(py::module& m)
 {
     joystickCallback = py::none();
@@ -70,19 +62,6 @@ void init_joystick(py::module& m)
             return static_cast<bool>(glfwJoystickIsGamepad(jid));
         },
         "jid"_a
-    );
-
-    m.def(
-        "SetJoysticksCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = joystickCallback;
-            joystickCallback = callback;
-            glfwSetJoystickCallback(joystickCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
     );
 
     m.def("UpdateGamepadMappings", glfwUpdateGamepadMappings, "string"_a);

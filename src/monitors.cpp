@@ -1,20 +1,8 @@
 #include <list-wrapper.h>
 #include <modules.h>
 
-static py::object monitorCallback;
-
-void monitorSetCallbackFunc(GLFWmonitor* monitor, int event)
-{
-    if(!monitorCallback.is_none())
-    {
-        monitorCallback(monitor, event);
-    }
-}
-
 void init_monitors(py::module& m)
 {
-    monitorCallback = py::none();
-
     initListWrapper<GLFWmonitor*>(m, "ListWrapperMonitor");
 
     m.def(
@@ -77,18 +65,6 @@ void init_monitors(py::module& m)
 
     // TODO glfwSetMonitorUserPointer? Might not be useful
     // glfwGetMonitorUserPointer
-
-    m.def(
-        "SetMonitorCallback",
-        [](py::object callback)
-        {
-            py::object out = monitorCallback;
-            monitorCallback = callback;
-            glfwSetMonitorCallback(monitorSetCallbackFunc);
-            return out;
-        },
-        "callback"_a
-    );
 
     initListWrapper<GLFWvidmode>(m, "ListWrapperVidmode");
 

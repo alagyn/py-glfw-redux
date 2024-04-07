@@ -16,4 +16,5 @@ PYBIND11_MODULE(glfw, m)
     init_windows(m);
     init_input(m);
     init_joystick(m);
+    init_callbacks(m);
 }

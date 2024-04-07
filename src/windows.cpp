@@ -1,98 +1,7 @@
 #include <modules.h>
 
-static py::object windowPosCallback;
-static py::object windowSizeCallback;
-static py::object windowCloseCallback;
-static py::object windowRefreshCallback;
-static py::object windowFocusCallback;
-static py::object windowIconifyCallback;
-static py::object windowMaximizeCallback;
-static py::object framebufferSizeCallback;
-static py::object windowContentScaleCallback;
-
-void windowPosCallbackFunc(GLFWwindow* window, int xpos, int ypos)
-{
-    if(!windowPosCallback.is_none())
-    {
-        windowPosCallback(window, xpos, ypos);
-    }
-}
-
-void windowSizeCallbackFunc(GLFWwindow* window, int width, int height)
-{
-    if(!windowSizeCallback.is_none())
-    {
-        windowSizeCallback(window, width, height);
-    }
-}
-
-void windowCloseCallbackFunc(GLFWwindow* window)
-{
-    if(!windowCloseCallback.is_none())
-    {
-        windowCloseCallback(window);
-    }
-}
-
-void windowRefreshCallbackFunc(GLFWwindow* window)
-{
-    if(!windowRefreshCallback.is_none())
-    {
-        windowRefreshCallback(window);
-    }
-}
-
-void windowFocusCallbackFunc(GLFWwindow* window, int focused)
-{
-    if(!windowFocusCallback.is_none())
-    {
-        windowFocusCallback(window, static_cast<bool>(focused));
-    }
-}
-
-void windowIconifyCallbackFunc(GLFWwindow* window, int iconified)
-{
-    if(!windowIconifyCallback.is_none())
-    {
-        windowIconifyCallback(window, static_cast<bool>(iconified));
-    }
-}
-
-void windowMaximizeCallbackFunc(GLFWwindow* window, int maximized)
-{
-    if(!windowMaximizeCallback.is_none())
-    {
-        windowMaximizeCallback(window, static_cast<bool>(maximized));
-    }
-}
-
-void framebufferSizeCallbackFunc(GLFWwindow* window, int width, int height)
-{
-    if(!framebufferSizeCallback.is_none())
-    {
-        framebufferSizeCallback(window, width, height);
-    }
-}
-
-void windowContentScaleCallbackFunc(GLFWwindow* window, float xscale, float yscale)
-{
-    if(!windowContentScaleCallback.is_none())
-    {
-        windowContentScaleCallback(window, xscale, yscale);
-    }
-}
-
 void init_windows(py::module& m)
 {
-    windowPosCallback = py::none();
-    windowSizeCallback = py::none();
-    windowCloseCallback = py::none();
-    windowRefreshCallback = py::none();
-    windowFocusCallback = py::none();
-    windowIconifyCallback = py::none();
-    windowMaximizeCallback = py::none();
-    framebufferSizeCallback = py::none();
-
     QUICK(DefaultWindowHints);
 
     m.def("WindowHint", glfwWindowHint, "hint"_a, "value"_a);
@@ -109,7 +18,12 @@ void init_windows(py::module& m)
         py::return_value_policy::reference
     );
 
-    m.def("DestroyWindow", glfwDestroyWindow, "window"_a);
+    m.def(
+        "DestroyWindow",
+        glfwDestroyWindow,
+        "window"_a,
+        py::call_guard<py::gil_scoped_release>()
+    );
 
     m.def(
         "WindowShouldClose",
@@ -247,124 +161,4 @@ void init_windows(py::module& m)
 
     // TODO glfwSetWindowUserPointer?
     // glfwGetWindowuserPointer
-
-    m.def(
-        "SetWindowPosCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowPosCallback;
-            windowPosCallback = callback;
-            glfwSetWindowPosCallback(window, windowPosCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowSizeCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowSizeCallback;
-            windowSizeCallback = callback;
-            glfwSetWindowSizeCallback(window, windowSizeCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowCloseCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowCloseCallback;
-            windowCloseCallback = callback;
-            glfwSetWindowCloseCallback(window, windowCloseCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowRefreshcallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowRefreshCallback;
-            windowRefreshCallback = callback;
-            glfwSetWindowRefreshCallback(window, windowRefreshCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowFocusCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowFocusCallback;
-            windowFocusCallback = callback;
-            glfwSetWindowFocusCallback(window, windowFocusCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowIconifyCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowIconifyCallback;
-            windowIconifyCallback = callback;
-            glfwSetWindowIconifyCallback(window, windowIconifyCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowMaximizeCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowMaximizeCallback;
-            windowMaximizeCallback = callback;
-            glfwSetWindowMaximizeCallback(window, windowMaximizeCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetFramebufferSizeCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = framebufferSizeCallback;
-            framebufferSizeCallback = callback;
-            glfwSetFramebufferSizeCallback(window, framebufferSizeCallbackFunc);
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
-
-    m.def(
-        "SetWindowContentScaleCallback",
-        [](GLFWwindow* window, py::object callback)
-        {
-            py::object out = windowContentScaleCallback;
-            windowContentScaleCallback = callback;
-            glfwSetWindowContentScaleCallback(
-                window,
-                windowContentScaleCallbackFunc
-            );
-            return out;
-        },
-        "window"_a,
-        "callback"_a
-    );
 }

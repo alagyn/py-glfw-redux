@@ -12,8 +12,8 @@ setup(
         PyBindModule(
             module_name="glfw",
             source_dir=".",
-            dep_bin_prefixes=["third-party/glfw/src"],
-            inc_dirs=[("third-party/glfw/include", "")],
+            dep_bin_prefixes=["third-party/glfw/src", "third-party"],
+            inc_dirs=[("third-party/glfw/include", "glfw"), ("third-party/glad/include", "glad")],
         )
     ]
 )
