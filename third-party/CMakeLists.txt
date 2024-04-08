@@ -9,10 +9,17 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
 add_subdirectory(glfw)
 
-set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+option(ENABLE_OPENGL_ES "Compile against OpenGL ES" OFF)
+
+if(${ENABLE_OPENGL_ES})
+    set(GLAD_SRC glad/src/gles2.c)
+else()
+    set(GLAD_SRC glad/src/gl.c)
+endif()
+
 add_library(glad
     SHARED
-    glad/src/gl.c
+    ${GLAD_SRC}
 )
 
 target_include_directories(glad PUBLIC
