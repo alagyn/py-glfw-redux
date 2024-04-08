@@ -1,6 +1,10 @@
 #pragma once
 
-#include <glad/gl.h>
+#ifndef ENABLE_OPENGL_ES
+    #include <glad/gl.h>
+#else
+    #include <glad/gles2.h>
+#endif
 
 #include <GLFW/glfw3.h>
 #include <pybind11/pybind11.h>

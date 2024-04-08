@@ -9,8 +9,6 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
 add_subdirectory(glfw)
 
-option(ENABLE_OPENGL_ES "Compile against OpenGL ES" OFF)
-
 if(${ENABLE_OPENGL_ES})
     set(GLAD_SRC glad/src/gles2.c)
 else()

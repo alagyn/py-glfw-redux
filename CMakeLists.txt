@@ -5,6 +5,8 @@ project(py-glfw-redux)
 set(CMAKE_DEBUG_POSTFIX, "-d")
 set(Python3_FIND_REGISTRY NEVER)
 
+option(ENABLE_OPENGL_ES "Compile against OpenGL ES" OFF)
+
 if(${MSVC})
     set(PY_COMPONENTS Interpreter Development)
 else()
@@ -54,6 +56,10 @@ target_include_directories(pyglfw
 target_compile_definitions(pyglfw
     PRIVATE PYBIND11_DETAILED_ERROR_MESSAGES
 )
+
+if(${ENABLE_OPENGL_ES})
+    target_compile_definitions(pyglfw PRIVATE ENABLE_OPENGL_ES)
+endif()
 
 if(${MSVC})
 else()
