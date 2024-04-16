@@ -13,8 +13,8 @@ cd $home/..
 for ver in $PY_VERSIONS
 do
     echo "Building $ver"
-    rm -rf build/*
-    mkdir -f build
+    rm -rf build
+    mkdir build
     ${PY_ROOT}${ver}/python.exe -m build --wheel
 done
 
